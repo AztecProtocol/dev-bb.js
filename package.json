@@ -1,0 +1,93 @@
+{
+  "name": "@aztec/bb.js",
+  "version": "0.0.1-alpha.7",
+  "license": "MIT",
+  "type": "module",
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "displayName": "bb.js",
+    "tsconfig": "./tsconfig.json"
+  },
+  "main": "./dest/index.js",
+  "bin": "./dest/main.js",
+  "files": [
+    "src/",
+    "dest/",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dest .tsbuildinfo",
+    "build": "yarn clean && yarn build:wasm && yarn build:ts:browser && yarn build:ts:node",
+    "build:dev": "tsc -b --watch",
+    "build:wasm": "cd ../cpp && cmake --preset wasm-threads && cmake --build --preset wasm-threads && cmake --preset wasm && cmake --build --preset wasm",
+    "build:ts:browser": "BUILD_TARGET=browser node generate_tsconfig.cjs && tsc -b && BUILD_TARGET=browser webpack && chmod +x ./dest/browser/main.js && BUILD_TARGET=browser node replace_imports.cjs",
+    "build:ts:node": "BUILD_TARGET=node node generate_tsconfig.cjs && tsc -b && BUILD_TARGET=node webpack && chmod +x ./dest/node/main.js && BUILD_TARGET=node node replace_imports.cjs",
+    "build:bindings": "cd .. && ./scripts/bindgen.sh",
+    "serve": "webpack serve",
+    "formatting": "prettier --check ./src && eslint --max-warnings 0 ./src",
+    "formatting:fix": "prettier -w ./src",
+    "test": "yarn test:jest && yarn test:bin",
+    "test:jest": "NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 node --experimental-vm-modules $(yarn bin jest) --no-cache --passWithNoTests",
+    "test:bin": "cd ./test && ./bin-test.sh",
+    "test-debug": "NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 node --inspect-brk=0.0.0.0 --experimental-vm-modules $(yarn bin jest) --no-cache --passWithNoTests --runInBand",
+    "simple_test": "NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 node ./src/examples/simple.rawtest.ts",
+    "prepack": "yarn build",
+    "deploy": "npm publish --tag alpha --access public"
+  },
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "transform": {
+      "./src/.*\\.ts": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "testRegex": "./src/.*\\.test\\.ts$",
+    "rootDir": "./src"
+  },
+  "dependencies": {
+    "comlink": "^4.4.1",
+    "commander": "^10.0.1",
+    "crypto-browserify": "^3.12.0",
+    "debug": "^4.3.4",
+    "eventemitter3": "^5.0.1",
+    "fs": "^0.0.1-security",
+    "idb-keyval": "^6.2.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "url": "^0.11.1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.4.3",
+    "@types/debug": "^4.1.7",
+    "@types/detect-node": "^2.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.7.23",
+    "@types/source-map-support": "^0.5.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "buffer": "^6.0.3",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.8.0",
+    "html-webpack-plugin": "^5.5.1",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.4",
+    "replace-in-file": "^7.0.1",
+    "resolve-typescript-plugin": "^2.0.1",
+    "ts-jest": "^29.1.0",
+    "ts-loader": "^9.4.2",
+    "tsconfig-paths-webpack-plugin": "^4.0.1",
+    "typescript": "^5.0.4",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  }
+}

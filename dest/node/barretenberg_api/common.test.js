@@ -1,0 +1,18 @@
+import { newBarretenbergApiAsync } from '../factory/index.js';
+describe('env', () => {
+    let api;
+    beforeAll(async () => {
+        api = await newBarretenbergApiAsync(3);
+    });
+    afterAll(async () => {
+        await api.destroy();
+    });
+    it('thread test', async () => {
+        // Main thread doesn't do anything in this test, so -1.
+        const threads = (await api.getNumThreads()) - 1;
+        const iterations = 100000;
+        const result = await api.testThreads(threads, iterations);
+        expect(result).toBe(iterations);
+    });
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29tbW9uLnRlc3QuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvYmFycmV0ZW5iZXJnX2FwaS9jb21tb24udGVzdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQXdCLHVCQUF1QixFQUFFLE1BQU0scUJBQXFCLENBQUM7QUFFcEYsUUFBUSxDQUFDLEtBQUssRUFBRSxHQUFHLEVBQUU7SUFDbkIsSUFBSSxHQUF5QixDQUFDO0lBRTlCLFNBQVMsQ0FBQyxLQUFLLElBQUksRUFBRTtRQUNuQixHQUFHLEdBQUcsTUFBTSx1QkFBdUIsQ0FBQyxDQUFDLENBQUMsQ0FBQztJQUN6QyxDQUFDLENBQUMsQ0FBQztJQUVILFFBQVEsQ0FBQyxLQUFLLElBQUksRUFBRTtRQUNsQixNQUFNLEdBQUcsQ0FBQyxPQUFPLEVBQUUsQ0FBQztJQUN0QixDQUFDLENBQUMsQ0FBQztJQUVILEVBQUUsQ0FBQyxhQUFhLEVBQUUsS0FBSyxJQUFJLEVBQUU7UUFDM0IsdURBQXVEO1FBQ3ZELE1BQU0sT0FBTyxHQUFHLENBQUMsTUFBTSxHQUFHLENBQUMsYUFBYSxFQUFFLENBQUMsR0FBRyxDQUFDLENBQUM7UUFDaEQsTUFBTSxVQUFVLEdBQUcsTUFBTSxDQUFDO1FBQzFCLE1BQU0sTUFBTSxHQUFHLE1BQU0sR0FBRyxDQUFDLFdBQVcsQ0FBQyxPQUFPLEVBQUUsVUFBVSxDQUFDLENBQUM7UUFDMUQsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQztJQUNsQyxDQUFDLENBQUMsQ0FBQztBQUNMLENBQUMsQ0FBQyxDQUFDIn0=
