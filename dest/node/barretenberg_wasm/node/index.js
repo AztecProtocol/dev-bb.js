@@ -8,7 +8,7 @@ import { nodeEndpoint } from './node_endpoint.js';
 import { writeSync } from 'fs';
 export async function fetchCode(multithreading) {
     const __dirname = dirname(fileURLToPath(import.meta.url));
-    return await readFile(__dirname + `/../../../${multithreading ? "barretenberg-threads.wasm" : "barretenberg.wasm"}`);
+    return await readFile(__dirname + `/../../../${multithreading ? 'barretenberg-threads.wasm' : 'barretenberg.wasm'}`);
 }
 export function createWorker() {
     const __dirname = dirname(fileURLToPath(import.meta.url));

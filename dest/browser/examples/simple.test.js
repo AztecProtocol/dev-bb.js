@@ -10,7 +10,7 @@ describe('simple', () => {
         await api.commonInitSlabAllocator(CIRCUIT_SIZE);
         const crs = await Crs.new(2 ** 19 + 1);
         await api.srsInitSrs(new RawBuffer(crs.getG1Data()), crs.numPoints, new RawBuffer(crs.getG2Data()));
-    }, 20000);
+    }, 30000);
     afterAll(async () => {
         await api.destroy();
     });

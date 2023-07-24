@@ -6,7 +6,7 @@ export declare class CachedNetCrs {
     private g1Data;
     private g2Data;
     constructor(numPoints: number);
-    static new(numPoints: number): Promise<CachedNetCrs>;
+    static new(numPoints: number, _?: string): Promise<CachedNetCrs>;
     /**
      * Download the data.
      */
