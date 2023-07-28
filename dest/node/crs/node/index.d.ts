@@ -5,7 +5,7 @@ export declare class Crs {
     readonly numPoints: number;
     readonly path: string;
     constructor(numPoints: number, path: string);
-    static new(numPoints: number): Promise<Crs>;
+    static new(numPoints: number, crsPath?: string): Promise<Crs>;
     init(): Promise<void>;
     /**
      * G1 points data for prover key.

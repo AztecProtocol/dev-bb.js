@@ -2,7 +2,7 @@
 /// <reference types="node" resolution-mode="require"/>
 import { Worker } from 'worker_threads';
 import { type BarretenbergWasmWorker } from '../barretenberg_wasm.js';
-export declare function fetchCode(name: string): Promise<Buffer>;
+export declare function fetchCode(multithreading: boolean): Promise<Buffer>;
 export declare function createWorker(): Worker;
 export declare function getRemoteBarretenbergWasm(worker: Worker): BarretenbergWasmWorker;
 export declare function getNumCpu(): number;

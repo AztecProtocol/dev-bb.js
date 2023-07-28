@@ -1,5 +1,5 @@
 import { BarretenbergWasmWorker } from '../barretenberg_wasm.js';
-export declare function fetchCode(_name?: string): Promise<ArrayBuffer>;
+export declare function fetchCode(multithreading: boolean): Promise<ArrayBuffer>;
 export declare function createWorker(): Worker;
 export declare function getRemoteBarretenbergWasm(worker: Worker): BarretenbergWasmWorker;
 export declare function getNumCpu(): number;

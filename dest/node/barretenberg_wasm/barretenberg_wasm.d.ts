@@ -1,3 +1,4 @@
+/// <reference types="node" resolution-mode="require"/>
 import { type Worker } from 'worker_threads';
 import { Remote } from 'comlink';
 export declare class BarretenbergWasm {
